@@ -10,8 +10,8 @@ using Server_PHP_For_Business.Data;
 namespace Server_PHP_For_Business.Migrations
 {
     [DbContext(typeof(CommanderContext))]
-    [Migration("20201108130024_ModelIsPotentiallyDone")]
-    partial class ModelIsPotentiallyDone
+    [Migration("20201109232548_SeatsAsJsonObjs")]
+    partial class SeatsAsJsonObjs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,10 +36,6 @@ namespace Server_PHP_For_Business.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
-
                     b.ToTable("Bracelets");
                 });
 
@@ -52,11 +48,13 @@ namespace Server_PHP_For_Business.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
 
                     b.HasKey("Id");
 
@@ -97,37 +95,15 @@ namespace Server_PHP_For_Business.Migrations
                     b.Property<long>("BusinessId")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("_Seats")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Seats");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BusinessId");
 
                     b.ToTable("Halls");
-                });
-
-            modelBuilder.Entity("Server_PHP_For_Business.Models.Seat", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("CostType")
-                        .HasColumnType("int");
-
-                    b.Property<long?>("HallId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("State")
-                        .HasColumnType("int");
-
-                    b.Property<long?>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HallId");
-
-                    b.ToTable("Seat");
                 });
 
             modelBuilder.Entity("Server_PHP_For_Business.Models.User", b =>
@@ -142,30 +118,30 @@ namespace Server_PHP_For_Business.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Info")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
-                });
+                    b.HasIndex("BraceletId")
+                        .IsUnique()
+                        .HasFilter("[BraceletId] IS NOT NULL");
 
-            modelBuilder.Entity("Server_PHP_For_Business.Models.Bracelet", b =>
-                {
-                    b.HasOne("Server_PHP_For_Business.Models.User", "User")
-                        .WithOne("Bracelet")
-                        .HasForeignKey("Server_PHP_For_Business.Models.Bracelet", "UserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Server_PHP_For_Business.Models.Hall", b =>
@@ -177,11 +153,12 @@ namespace Server_PHP_For_Business.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Server_PHP_For_Business.Models.Seat", b =>
+            modelBuilder.Entity("Server_PHP_For_Business.Models.User", b =>
                 {
-                    b.HasOne("Server_PHP_For_Business.Models.Hall", null)
-                        .WithMany("Seats")
-                        .HasForeignKey("HallId");
+                    b.HasOne("Server_PHP_For_Business.Models.Bracelet", "Bracelet")
+                        .WithOne("User")
+                        .HasForeignKey("Server_PHP_For_Business.Models.User", "BraceletId")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace Server_PHP_For_Business.Models
 {
@@ -7,6 +9,14 @@ namespace Server_PHP_For_Business.Models
   {
     [Key] public long Id { get; set; }
     [Required] public Business Business { get; set; }
-    [Required] public List<Seat> Seats { get; set; }
+
+    [NotMapped, JsonIgnore]
+    public List<Seat> Seats
+    {
+      get => JsonConvert.DeserializeObject<List<Seat>>(_Seats);
+      set => _Seats = JsonConvert.SerializeObject(value);
+    }
+
+    internal string _Seats { get; set; }
   }
 }

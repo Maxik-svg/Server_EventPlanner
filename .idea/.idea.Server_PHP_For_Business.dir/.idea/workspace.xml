@@ -27,19 +27,20 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Server_PHP_For_Business.csproj" />
-        <option value="$PROJECT_DIR$/Startup.cs" />
-        <option value="$PROJECT_DIR$/Controllers/CommandsController.cs" />
         <option value="$PROJECT_DIR$/Data/ICommanderRepo.cs" />
         <option value="$PROJECT_DIR$/Models/Seat.cs" />
         <option value="$PROJECT_DIR$/Data/SqlCommanderRepo.cs" />
         <option value="$PROJECT_DIR$/Data/MockCommanderRepo.cs" />
         <option value="$PROJECT_DIR$/Models/HallBusiness.cs" />
         <option value="$PROJECT_DIR$/Models/Bracelet.cs" />
-        <option value="$PROJECT_DIR$/Data/CommanderContext.cs" />
         <option value="$PROJECT_DIR$/Migrations/20201108130024_ModelIsPotentiallyDone.cs" />
         <option value="$PROJECT_DIR$/Models/User.cs" />
-        <option value="$PROJECT_DIR$/Models/Hall.cs" />
         <option value="$PROJECT_DIR$/Models/Business.cs" />
+        <option value="$PROJECT_DIR$/Models/Hall.cs" />
+        <option value="$PROJECT_DIR$/Data/CommanderContext.cs" />
+        <option value="$PROJECT_DIR$/Startup.cs" />
+        <option value="$PROJECT_DIR$/Properties/launchSettings.json" />
+        <option value="$PROJECT_DIR$/Controllers/CommandsController.cs" />
       </list>
     </option>
   </component>
@@ -97,7 +98,7 @@
       <updated>1604794946235</updated>
       <workItem from="1604794955378" duration="7171000" />
       <workItem from="1604830597461" duration="78000" />
-      <workItem from="1604830716051" duration="10897000" />
+      <workItem from="1604830716051" duration="17057000" />
     </task>
     <servers />
   </component>
@@ -110,22 +111,22 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1604833695843">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1604965695313">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1604833695843" />
-    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1604833695842">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1604965695313" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1604965695313">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1604833695842" />
-    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1604833695842">
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1604965695313" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1604965695312">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1604833695842" />
-    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1604833695843">
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1604965695312" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1604965695313">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1604833695843" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1604965695313" />
     <state x="579" y="114" key="RiderGenerateDialog" timestamp="1604835902506">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -142,5 +143,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1604841749322" />
+    <state x="439" y="145" width="657" height="534" key="find.popup" timestamp="1604965540251">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="439" y="145" width="657" height="534" key="find.popup/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1604965540251" />
   </component>
 </project>
