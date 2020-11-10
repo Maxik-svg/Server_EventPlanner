@@ -17,6 +17,11 @@ namespace Server_PHP_For_Business.Models
       set => _Seats = JsonConvert.SerializeObject(value);
     }
 
+    public static void CopyValues(Hall from, Hall to)
+    {
+      to.Seats = from.Seats;
+    }
+
     internal string _Seats { get; set; }
   }
 }

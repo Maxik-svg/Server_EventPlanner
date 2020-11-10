@@ -9,5 +9,11 @@ namespace Server_PHP_For_Business.Models
     [Required, MaxLength(100)] public string Email { get; set; }
     [Required, MaxLength(40)] public string Password { get; set; }
     public ICollection<Hall> Halls { get; set; }
+
+    public static void CopyValues(Business from, Business to)
+    {
+      to.Email = from.Email;
+      to.Password = from.Password;
+    }
   }
 }
