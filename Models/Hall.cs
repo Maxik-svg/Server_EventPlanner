@@ -8,12 +8,12 @@ namespace Server_PHP_For_Business.Models
   public class Hall
   {
     [Key] public long Id { get; set; }
-    [Required] public Business Business { get; set; }
+    public Business Business { get; set; }
 
     [NotMapped, JsonIgnore]
-    public List<Seat> Seats
+    public List<List<Seat>> Seats
     {
-      get => JsonConvert.DeserializeObject<List<Seat>>(_Seats);
+      get => _Seats == null ? null : JsonConvert.DeserializeObject<List<List<Seat>>>(_Seats);
       set => _Seats = JsonConvert.SerializeObject(value);
     }
 
@@ -22,6 +22,6 @@ namespace Server_PHP_For_Business.Models
       to.Seats = from.Seats;
     }
 
-    internal string _Seats { get; set; }
+    public string _Seats { get; set; }
   }
 }

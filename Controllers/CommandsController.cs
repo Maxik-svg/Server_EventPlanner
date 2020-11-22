@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Server_PHP_For_Business.Data;
 using Server_PHP_For_Business.Dtos;
 using Server_PHP_For_Business.Models;
+using Newtonsoft.Json;
 
 namespace Server_PHP_For_Business.Controllers
 {
@@ -43,12 +44,12 @@ namespace Server_PHP_For_Business.Controllers
 
     [HttpPost]
     [ActionName("users")]
-    public ActionResult<CommandReadDto> CreateUser(User user)
+    public ActionResult CreateUser(User userCreateDto)
     {
-      _repository.CreateUser(user);
+      _repository.CreateUser(userCreateDto);
       _repository.SaveChanges();
 
-      return CreatedAtRoute(nameof(GetUserById), new {Id = user.Id}, user);
+      return CreatedAtRoute(nameof(GetUserById), new {Id = userCreateDto.Id}, userCreateDto);
     }
 
     [HttpPost("{id}")]
@@ -77,7 +78,7 @@ namespace Server_PHP_For_Business.Controllers
 
       _repository.DeleteUser(userRepo);
       _repository.SaveChanges();
-      return NoContent();
+      return Ok();
     }
 
     [HttpGet]
@@ -172,6 +173,7 @@ namespace Server_PHP_For_Business.Controllers
     public ActionResult UpdateHall(int id, Hall hallUpdateDto)
     {
       var hallModel = _repository.GetHallById(id);
+
       if (hallModel == null)
         return NotFound();
 

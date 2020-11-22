@@ -44,6 +44,9 @@
           </e>
         </e>
       </e>
+      <e p="OptimisationMethods" t="Include">
+        <e p="SafetyChecker.cs" t="Include" />
+      </e>
       <e p="packages" t="ExcludeRecursive" />
       <e p="Profiles" t="Include">
         <e p="CommandsProfile.cs" t="Include" />

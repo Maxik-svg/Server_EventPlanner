@@ -4,9 +4,9 @@ namespace Server_PHP_For_Business.Models
 {
   public class Seat
   {
-    [Key] public long Id { get; set; }
-    [Required] public SeatState State { get; set; }
-    [Required] public CostType CostType { get; set; }
+    public long Id { get; set; }
+    public SeatState State { get; set; }
+    public CostType CostType { get; set; }
     public long? UserId { get; set; }
   }
 
