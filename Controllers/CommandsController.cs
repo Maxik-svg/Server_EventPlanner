@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Server_PHP_For_Business.Data;
 using Server_PHP_For_Business.Dtos;
 using Server_PHP_For_Business.Models;
-using Newtonsoft.Json;
+using Server_PHP_For_Business.OptimisationMethods;
 
 namespace Server_PHP_For_Business.Controllers
 {
@@ -178,6 +178,7 @@ namespace Server_PHP_For_Business.Controllers
         return NotFound();
 
       Hall.CopyValues(hallUpdateDto, hallModel);
+      hallModel.Seats.CheckDangerAndPerformActionsIfNeeded();
 
       _repository.UpdateHall(hallModel);
       _repository.SaveChanges();

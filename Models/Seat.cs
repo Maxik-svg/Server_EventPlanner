@@ -16,6 +16,7 @@ namespace Server_PHP_For_Business.Models
     Occupied = 1,
     Danger = 2, // curr seater is ill
     InDanger = 3, // seat is in danger zone
+    WaitingForUser = 4, //seat was chosen as optimal for user
   }
 
   public enum CostType

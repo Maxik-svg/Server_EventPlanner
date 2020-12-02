@@ -27,6 +27,10 @@
         <e p="20201108011545_FirstMigration.Designer.cs" t="Include" />
         <e p="20201109232548_SeatsAsJsonObjs.cs" t="Include" />
         <e p="20201109232548_SeatsAsJsonObjs.Designer.cs" t="Include" />
+        <e p="20201122214918_Hall_BusinessId_Fixed.cs" t="Include" />
+        <e p="20201122214918_Hall_BusinessId_Fixed.Designer.cs" t="Include" />
+        <e p="20201127230229_BusinessesEdited.cs" t="Include" />
+        <e p="20201127230229_BusinessesEdited.Designer.cs" t="Include" />
         <e p="CommanderContextModelSnapshot.cs" t="Include" />
       </e>
       <e p="Models" t="Include">

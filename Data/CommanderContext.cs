@@ -35,6 +35,7 @@ namespace Server_PHP_For_Business.Data
       modelBuilder.Entity<Business>()
         .HasMany(b => b.Halls)
         .WithOne(h => h.Business)
+        .HasForeignKey(h => h.BusinessId)
         .IsRequired()
         .OnDelete(DeleteBehavior.Cascade);
 

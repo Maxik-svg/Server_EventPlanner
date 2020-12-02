@@ -9,6 +9,9 @@ namespace Server_PHP_For_Business.Models
   {
     [Key] public long Id { get; set; }
     public Business Business { get; set; }
+    public long BusinessId { get; set; }
+
+    public string _Seats { get; set; }
 
     [NotMapped, JsonIgnore]
     public List<List<Seat>> Seats
@@ -20,8 +23,7 @@ namespace Server_PHP_For_Business.Models
     public static void CopyValues(Hall from, Hall to)
     {
       to.Seats = from.Seats;
+      to.BusinessId = from.BusinessId;
     }
-
-    public string _Seats { get; set; }
   }
 }
