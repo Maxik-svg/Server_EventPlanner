@@ -1,9 +1,13 @@
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Server_PHP_For_Business.Data;
 using Server_PHP_For_Business.Dtos;
+using Server_PHP_For_Business.Helpers;
 using Server_PHP_For_Business.Models;
 using Server_PHP_For_Business.OptimisationMethods;
 
@@ -23,12 +27,32 @@ namespace Server_PHP_For_Business.Controllers
       _mapper = mapper;
     }
 
+    [AllowAnonymous]
+    [HttpPost("")]
+    public IActionResult Authenticate([FromBody]AuthenticateModel model)
+    {
+      var user = _repository.Authenticate(model.Username, model.Password);
+
+      if (user == null)
+        return BadRequest(new { message = "Username or password is incorrect" });
+
+      return Ok(user);
+    }
+
+    [HttpPost("")]
+    [ActionName("backup")]
+    public IActionResult BackupDatabase()
+    {
+      _repository.BackupDb();
+      return Ok();
+    }
+
     [HttpGet]
     [ActionName("users")]
     public ActionResult<IEnumerable<CommandReadDto>> GetAllUsers()
     {
       var users = _repository.GetAllUsers();
-      return Ok(users);
+      return Ok(users.Select(x => x.WithoutPassword()));
     }
 
     [HttpGet("{id}", Name = "GetUserById")]
@@ -39,7 +63,7 @@ namespace Server_PHP_For_Business.Controllers
       if (user == null)
         return NotFound();
 
-      return Ok(user);
+      return Ok(user.WithoutPassword());
     }
 
     [HttpPost]
@@ -178,7 +202,9 @@ namespace Server_PHP_For_Business.Controllers
         return NotFound();
 
       Hall.CopyValues(hallUpdateDto, hallModel);
-      hallModel.Seats.CheckDangerAndPerformActionsIfNeeded();
+      var dataChanged = hallUpdateDto.Seats.CheckDangerAndPerformActionsIfNeeded(out var newSeats);
+      if (dataChanged)
+        hallModel.Seats = newSeats;
 
       _repository.UpdateHall(hallModel);
       _repository.SaveChanges();

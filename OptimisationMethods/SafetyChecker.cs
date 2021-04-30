@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper.Internal;
 using Server_PHP_For_Business.Models;
 
 namespace Server_PHP_For_Business.OptimisationMethods
@@ -9,7 +10,7 @@ namespace Server_PHP_For_Business.OptimisationMethods
   {
     private const int DangerRange = 2;
 
-    public static bool CheckDangerAndPerformActionsIfNeeded(this List<List<Seat>> seats)
+    public static bool CheckDangerAndPerformActionsIfNeeded(this List<List<Seat>> seats, out List<List<Seat>> newSeats)
     {
       var dangerSeatsIds = seats.SelectMany(
         row => row.Where(seat => seat.State == SeatState.Danger)
@@ -18,6 +19,8 @@ namespace Server_PHP_For_Business.OptimisationMethods
 
       if (dangerSeatsIds.Count > 0)
         PerformActions(seats, dangerSeatsIds);
+
+      newSeats = seats;
 
       return dangerSeatsIds.Count > 0;
     }
@@ -31,6 +34,8 @@ namespace Server_PHP_For_Business.OptimisationMethods
         .SelectMany(row => row.Select(s => s))
         .Where(s => s.State == SeatState.Free && !seatsInDanger.Contains(s.Id))
         .ToList();
+
+      seats.SelectMany(r => r.Where(s => seatsInDanger.Contains(s.Id))).ForAll(s => s.State = SeatState.InDanger);
 
       foreach (var seatId in seatsInDanger)
       {
@@ -71,19 +76,51 @@ namespace Server_PHP_For_Business.OptimisationMethods
 
         for (var i = 1; i <= DangerRange; i++)
         {
-          var checkedColumn = DefineColumnById(seatId + i, columnCount);
+          var right = seatId + i;
+          var checkedColumn = DefineColumnById(right, columnCount); // right
           if(checkedColumn.FeatsColumnRestrictions(seatColumn, columnCount))
-            inDangerSeats.Add(seatId + i);
+            inDangerSeats.Add(right);
 
-          checkedColumn = DefineColumnById(seatId - i, columnCount);
+          var left = seatId - i;
+          checkedColumn = DefineColumnById(left, columnCount); // left
           if(checkedColumn.FeatsColumnRestrictions(seatId, columnCount))
-            inDangerSeats.Add(seatId - i);
+            inDangerSeats.Add(left);
 
-          if(DefineRowById(seatId + columnCount * i, columnCount) < rowCount)
-            inDangerSeats.Add(seatId + columnCount * i);
+          var down = seatId + columnCount * i;
+          if(DefineRowById(down, columnCount) < rowCount) // down
+            inDangerSeats.Add(down);
 
-          if(DefineRowById(seatId - columnCount * i, columnCount) >= 0)
-            inDangerSeats.Add(seatId - columnCount * i);
+          var up = seatId - columnCount * i;
+          if(DefineRowById(up, columnCount) >= 0) // up
+            inDangerSeats.Add(up);
+
+          if(i > DangerRange/2)
+            continue;
+
+          var downRight = down + i;
+          checkedColumn = DefineColumnById(downRight, columnCount); // down right
+          if(checkedColumn.FeatsColumnRestrictions(seatColumn, columnCount)
+             && DefineRowById(downRight, columnCount) < rowCount)
+            inDangerSeats.Add(downRight);
+
+          var downLeft = down - i;
+          checkedColumn = DefineColumnById(downLeft, columnCount); // down left
+          if(checkedColumn.FeatsColumnRestrictions(seatColumn, columnCount)
+             && DefineRowById(downLeft, columnCount) < rowCount)
+            inDangerSeats.Add(downLeft);
+
+          var upRight = up + i;
+          checkedColumn = DefineColumnById(upRight, columnCount); // up right
+          if(checkedColumn.FeatsColumnRestrictions(seatColumn, columnCount)
+             && DefineRowById(upRight, columnCount) >= 0)
+            inDangerSeats.Add(upRight);
+
+          var upLeft = up - 1;
+          checkedColumn = DefineColumnById(upLeft, columnCount); // up left
+          if(checkedColumn.FeatsColumnRestrictions(seatColumn, columnCount)
+             && DefineRowById(upLeft, columnCount) >= 0)
+            inDangerSeats.Add(upLeft);
+
         }
       }
 
@@ -110,11 +147,15 @@ namespace Server_PHP_For_Business.OptimisationMethods
 
     private static long DefineColumnById(long seatId, int columnCount)
     {
+      if (seatId < 0)
+        return -1;
       return seatId - seatId / columnCount * columnCount; //integer division
     }
 
     private static long DefineRowById(long seatId, int columnCount)
     {
+      if (seatId < 0)
+        return -1;
       return (seatId - seatId % columnCount) / columnCount;
     }
 

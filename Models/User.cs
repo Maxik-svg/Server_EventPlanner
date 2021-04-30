@@ -11,6 +11,8 @@ namespace Server_PHP_For_Business.Models
     [MaxLength(255)] public string Info { get; set; }
     public long? BraceletId { get; set; }
     public Bracelet Bracelet { get; set; }
+    public string Role { get; set; }
+    public string Token { get; set; }
 
     public static void CopyValues(User from, User to)
     {
@@ -19,6 +21,7 @@ namespace Server_PHP_For_Business.Models
       to.Password = from.Password;
       to.Info = from.Info;
       to.BraceletId = from.BraceletId;
+      to.Role = from.Role;
     }
   }
 }

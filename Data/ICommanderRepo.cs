@@ -6,6 +6,7 @@ namespace Server_PHP_For_Business.Data
   public interface ICommanderRepo
   {
     bool SaveChanges();
+    void BackupDb();
 
     //commands
     IEnumerable<Command> GetAllCommands();
@@ -41,5 +42,7 @@ namespace Server_PHP_For_Business.Data
     void CreateBusiness(Business business);
     void UpdateBusiness(Business cmd);
     void DeleteBusiness(Business business);
+
+    User Authenticate(string username, string password);
   }
 }

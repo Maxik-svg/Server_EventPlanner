@@ -10,6 +10,11 @@ namespace Server_PHP_For_Business.Data
       throw new System.NotImplementedException();
     }
 
+    public void BackupDb()
+    {
+      throw new System.NotImplementedException();
+    }
+
     public IEnumerable<Command> GetAllCommands()
     {
       var commands = new List<Command>
@@ -138,6 +143,11 @@ namespace Server_PHP_For_Business.Data
     }
 
     public void DeleteBusiness(Business business)
+    {
+      throw new System.NotImplementedException();
+    }
+
+    public User Authenticate(string username, string password)
     {
       throw new System.NotImplementedException();
     }
